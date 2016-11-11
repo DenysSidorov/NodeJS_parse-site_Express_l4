@@ -1,7 +1,12 @@
 var request = require('request');
 var cheerio = require('cheerio');
 var express = require('express');
+var cookieParser = require('cookie-parser');
 var app = express();
+
+//use cookies
+app.use(cookieParser());
+// app.use(express.cookieParser('asdasdasd'));
 
 var bodyParser = require('body-parser');
 // parse application/x-www-form-urlencoded
@@ -19,19 +24,24 @@ app.engine('jade', templating.jade);
 app.set('view engine', 'jade');
 app.set('views', __dirname + '/views'); // + '/views'
 
-
 var request = require('request');
 var urlutils = require('url');
 
 app.get('/', function (req, res) {
-    res.render('index', {
-        title: 'Заполните форму для парсинга.'
-    });
+    if (req.cookies.rememberSite && req.cookies.rememberItems ){
+        res.render('index', {
+            title: 'Заполните форму для парсинга.',
+            rememberSite: req.cookies.rememberSite,
+            rememberItems: req.cookies.rememberItems
+        });
+    } else {
+        res.render('index', {
+            title: 'Заполните форму для парсинга.'
+        });
+    }
 });
 
-
 app.post('/', function (req, res) {
-
 
     if (req.body.site && req.body.items) {
         var titles = [];
@@ -39,8 +49,6 @@ app.post('/', function (req, res) {
             if (error) {
                 console.log("Error: " + error);
             }
-
-
             var $ = cheerio.load(body);
             if (req.body.site == 'https://news.ycombinator.com/news') {
                 var countforNews = 0;
@@ -68,7 +76,14 @@ app.post('/', function (req, res) {
                         console.log(metadata.title);
                     }
                 });
-                res.render('index', {titles:titles});
+                res.cookie('rememberSite', 'https://news.ycombinator.com/news', { maxAge: 900000 });
+                res.cookie('rememberItems', req.body.items, { maxAge: 900000 });
+                res.render('index', {
+                    titles:titles,
+                    rememberSite:'https://news.ycombinator.com/news',
+                    rememberItems:req.body.items
+                });
+
 
             } else if (req.body.site == 'https://www.reddit.com') {
                 var count = 0;
@@ -78,48 +93,19 @@ app.post('/', function (req, res) {
                         var title = $(this).find('p.title > a.title').text().trim();
                         titles.push(title);
                         console.log(title);
-
                     }
                 });
-                res.render('index', {titles:titles});
+                res.cookie('rememberSite', 'https://www.reddit.com', { maxAge: 900000 });
+                res.cookie('rememberItems', req.body.items, { maxAge: 900000 });
+                res.render('index', {
+                    titles:titles,
+                    rememberSite:'https://www.reddit.com',
+                    rememberItems:req.body.items
+                });
             }
         })
     }
-
-    // var url = urlutils.format({
-    //     protocol: 'https',
-    //     hostname: 'translate.yandex.net',
-    //     pathname: 'api/v1.5/tr.json/translate',
-    //     query: {
-    //         key: 'trnsl.1.1.20140416T130443Z.49db75a946e5d9df.baa803157e4482838c0612cb9c5aa513643049a4',
-    //         lang: req.body.lang,
-    //         text: req.body.text
-    //     }
-    // });
-    //
-    // request.get({
-    //         url: url,
-    //         json: true
-    //     }, function (error, response, json) {
-    //         var data = {};
-    //
-    //         if (error || json.code != 200) {
-    //             data = {
-    //                 title: "Ошибка при переводе слова " + req.body.text,
-    //                 error: json.message
-    //             }
-    //         } else {
-    //             data = {
-    //                 title: 'Перевод слова ' + req.body.text + ": " + json.text
-    //             }
-    //         }
-    //
-    //         res.render('translator', data);
-    //     }
-    // );
-
 });
-
 
 app.listen(8080);
 console.log('Express server listening on port 8080');

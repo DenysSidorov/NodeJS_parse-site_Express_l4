@@ -9,17 +9,21 @@ html(lang='en')
             form(method='post', name='form')
                 p
                     select(name='site')
-                        option(selected='', value='https://news.ycombinator.com/news') Ycombinator
-                        option(value='https://www.reddit.com') Reddit
+                        - var site = ['https://news.ycombinator.com/news','https://www.reddit.com']
+                        for itemS in site
+                            option(selected=rememberSite == itemS) #{itemS}
+
+                        //option(selected='', value='https://news.ycombinator.com/news') Ycombinator
+                        //option(value='https://www.reddit.com') Reddit
                 p
                     select(name='items')
-                        option(value='5', selected='') 5
-                        option(value='10') 10
-                        option(value='15') 15
-                        option(value='20') 25
+                        - var it = [5,10,15,25];
+                        for item in it
+                            option(selected=rememberItems == item) #{item}
                 p
                     input(type='submit', value='Отправить')
         .res
+            if titles
                 for name in titles
                     h6= name
 

@@ -1,9 +1,10 @@
 {
   "dependencies": {
-    "body-parser": "1.x",
+    "body-parser": "^1.15.2",
     "cheerio": "^0.22.0",
     "consolidate": "0.x",
     "express": "4.x",
+    "express-session": "^1.14.2",
     "handlebars": "2.x",
     "jade": "^1.11.0",
     "request": "^2.78.0"
