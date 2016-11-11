@@ -2,11 +2,11 @@ doctype html
 html(lang='en')
     head
         meta(charset='UTF-8')
-        title Title
+        title= title
         link(rel='stylesheet', href='style.css')
     body
         .container
-            form(method='post')
+            form(method='post', name='form')
                 p
                     select(name='site')
                         option(selected='', value='https://news.ycombinator.com/news') Ycombinator
@@ -20,3 +20,9 @@ html(lang='en')
                 p
                     input(type='submit', value='Отправить')
         .res
+                for name in titles
+                    h6= name
+
+
+
+
