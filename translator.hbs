@@ -1,0 +1,11 @@
+<h1>{{title}}</h1>
+{{#if error}}
+	<h2>{{error}}</h2>
+{{/if}}
+
+<form method="POST">
+	<input type="radio" name="lang" value="en-ru" checked> EN -&gt; RU
+	<input type="radio" name="lang" value="ru-en"> RU -&gt; EN
+	<input type="text" name="text">
+	<input type="submit" value="Перевести">
+</form>
