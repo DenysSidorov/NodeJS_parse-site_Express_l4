@@ -1,0 +1,22 @@
+doctype html
+html(lang='en')
+    head
+        meta(charset='UTF-8')
+        title Title
+        link(rel='stylesheet', href='style.css')
+    body
+        .container
+            form(method='post')
+                p
+                    select(name='site')
+                        option(selected='', value='https://news.ycombinator.com/news') Ycombinator
+                        option(value='https://www.reddit.com') Reddit
+                p
+                    select(name='items')
+                        option(value='5', selected='') 5
+                        option(value='10') 10
+                        option(value='15') 15
+                        option(value='20') 25
+                p
+                    input(type='submit', value='Отправить')
+        .res

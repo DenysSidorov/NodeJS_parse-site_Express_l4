@@ -7,7 +7,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 // parse application/json
 app.use(bodyParser.json());
 
-
+// add stic files
+app.use(express.static(__dirname + '/views'));
 
 
 var templating = require('consolidate');
@@ -26,7 +27,11 @@ app.get('/', function (req, res) {
     });
 });
 app.get('/vika', function (req, res) {
-    res.render('vika', { title: 'Hey', message: 'Hello there!' })
+    res.render('vika')
+});
+
+app.get('/index', function (req, res) {
+    res.render('index', { title: 'Hey', message: 'Hello there!' })
 });
 
 app.post('/', function (req, res) {
@@ -69,25 +74,7 @@ app.post('/', function (req, res) {
     }
 });
 
-app.get('/last10', function (req, res) {
-    // fake
-    var last10 = [];
-    last10.push({req: 'hello', res: 'привет'});
-    last10.push({req: 'world', res: 'мир'});
-    last10.push({req: 'school', res: 'школа'});
-    last10.push({req: 'hello', res: 'привет'});
-    last10.push({req: 'world', res: 'мир'});
-    last10.push({req: 'school', res: 'школа'});
-    last10.push({req: 'hello', res: 'привет'});
-    last10.push({req: 'world', res: 'мир'});
-    last10.push({req: 'school', res: 'школа'});
-    last10.push({req: 'fun', res: 'веселье'});
 
-    res.render('last10', {
-        title: 'Последние 10 переведенных слов',
-        words: last10
-    });
-});
 
 app.listen(8080);
 console.log('Express server listening on port 8080');

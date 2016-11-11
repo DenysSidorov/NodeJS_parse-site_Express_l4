@@ -1,0 +1,27 @@
+body{
+    display: flex;
+    justify-content: center;
+    /*align-items: baseline;*/
+    font: 20px/20px 'Arial';
+}
+.container{
+
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    border: 1px solid red;
+    border-radius: 10px;
+    font: 20px/20px 'Arial';
+    margin: 10px;
+    padding: 15px;;
+}
+.res{
+    padding: 15px;;
+    border-radius: 10px;
+    font: 20px/20px 'Arial';
+    margin: 10px;
+        border: 1px solid #62be5b;
+    /*display: flex;*/
+    /*justify-content: center;*/
+    text-align: center;
+}
