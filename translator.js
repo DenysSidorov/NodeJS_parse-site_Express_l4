@@ -17,7 +17,6 @@ app.set('view engine', 'jade');
 app.set('views', __dirname + '/views'); // + '/views'
 
 
-
 var request = require('request');
 var urlutils = require('url');
 
