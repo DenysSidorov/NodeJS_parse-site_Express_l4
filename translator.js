@@ -28,17 +28,11 @@ var request = require('request');
 var urlutils = require('url');
 
 app.get('/', function (req, res) {
-    if (req.cookies.rememberSite && req.cookies.rememberItems ){
         res.render('index', {
             title: 'Заполните форму для парсинга.',
             rememberSite: req.cookies.rememberSite,
             rememberItems: req.cookies.rememberItems
         });
-    } else {
-        res.render('index', {
-            title: 'Заполните форму для парсинга.'
-        });
-    }
 });
 
 app.post('/', function (req, res) {
@@ -50,6 +44,7 @@ app.post('/', function (req, res) {
                 console.log("Error: " + error);
             }
             var $ = cheerio.load(body);
+
             if (req.body.site == 'https://news.ycombinator.com/news') {
                 var countforNews = 0;
                 $('span.comhead').each(function (i, element) {
@@ -73,7 +68,7 @@ app.post('/', function (req, res) {
                             comments: parseInt(comments)
                         };
                         titles.push(metadata.title);
-                        console.log(metadata.title);
+                        // console.log(metadata.title);
                     }
                 });
                 res.cookie('rememberSite', 'https://news.ycombinator.com/news', { maxAge: 900000 });
@@ -92,7 +87,7 @@ app.post('/', function (req, res) {
                     if (count <= req.body.items) {
                         var title = $(this).find('p.title > a.title').text().trim();
                         titles.push(title);
-                        console.log(title);
+                        // console.log(title);
                     }
                 });
                 res.cookie('rememberSite', 'https://www.reddit.com', { maxAge: 900000 });

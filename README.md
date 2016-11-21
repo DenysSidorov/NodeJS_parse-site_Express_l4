@@ -9,3 +9,12 @@
 2)  Реализовать запоминание с помощью cookie текущих настроек
 формы и при заходе на сайт показывать последние использованные
 настройки. 
+
+NodeJS, ExpressJS, jQuery
+![NodeJS, ExpressJS, jQuery](https://github.com/DenysSidorov/NodeJS_parse-site_Express_l4/raw/master/img/1.jpg)
+
+
+npm i 
+
+node translator.js
+
